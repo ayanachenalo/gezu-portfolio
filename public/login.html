@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Admin Login | Gezu Mitiku</title>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;600;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<style>
+  .login-wrap { max-width: 400px; margin: 80px auto; background: var(--surface); border: 1px solid var(--line); padding: 30px; border-radius: 16px; }
+  .form-group { margin-bottom: 20px; }
+  .form-group label { display: block; font-weight: 600; margin-bottom: 8px; }
+  .form-group input { width: 100%; padding: 12px; border-radius: 8px; border: 1px solid var(--line); background: var(--bg); color: var(--ink); font-family: inherit; }
+  #error-msg { color: #e5484d; font-weight: 600; margin-top: 10px; display: none; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="login-wrap">
+    <h2>Admin Login</h2>
+    <p class="sub">Gara Dashboard seenuuf password galchaa.</p>
+    <form id="login-form">
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" required placeholder="Password keessan galchaa">
+      </div>
+      <button type="submit" class="btn" style="width:100%; border:none; cursor:pointer;">Login</button>
+      <div id="error-msg">Password dogoggoraa! Deebisaa yaalaa.</div>
+    </form>
+  </div>
+</div>
+
+<script>
+  document.getElementById('login-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const password = document.getElementById('password').value;
+
+    const res = await fetch('/api/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ password })
+    });
+
+    const data = await res.json();
+    if (res.ok) {
+      localStorage.setItem('adminToken', data.token);
+      window.location.href = 'admin.html';
+    } else {
+      document.getElementById('error-msg').style.display = 'block';
+    }
+  });
+</script>
+</body>
+</html>

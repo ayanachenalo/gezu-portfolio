@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Admin Dashboard | Gezu Mitiku Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;600;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<style>
+  .admin-container { max-width: 900px; margin: 40px auto; display: grid; gap: 30px; }
+  .admin-card { background: var(--surface); border: 1px solid var(--line); padding: 30px; border-radius: 16px; box-shadow: 0 20px 40px rgba(0,0,0,0.05); }
+  .form-group { margin-bottom: 20px; }
+  .form-group label { display: block; font-weight: 600; margin-bottom: 8px; color: var(--ink); }
+  .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 12px; border-radius: 8px; border: 1px solid var(--line); background: var(--bg); color: var(--ink); font-family: inherit; font-size: 1rem; }
+  .form-group textarea { resize: vertical; height: 100px; }
+  #success-msg { margin-top: 15px; color: var(--c1); font-weight: 600; display: none; }
+  
+  /* Manage Video List Styles */
+  .video-list-item { display: flex; justify-content: space-between; align-items: center; background: var(--bg); border: 1px solid var(--line); padding: 14px 18px; border-radius: 10px; margin-bottom: 12px; gap: 15px; flex-wrap: wrap; }
+  .video-info h4 { margin: 0 0 4px; font-size: 1.05rem; color: var(--ink); }
+  .video-info p { margin: 0; font-size: 0.88rem; color: var(--muted); }
+  .video-actions { display: flex; gap: 8px; }
+  .btn-sm { padding: 7px 14px; font-size: 0.85rem; border-radius: 6px; cursor: pointer; border: none; font-weight: 600; }
+  .btn-edit { background: var(--c3); color: #fff; }
+  .btn-delete { background: #ef4444; color: #fff; }
+  .btn-sm:hover { filter: brightness(1.1); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav>
+    <b><i>G</i>Admin Dashboard</b>
+    <div>
+      <a href="index.html" target="_blank">View Portfolio</a>
+      <a href="#" onclick="logout()" style="color:#ef4444; margin-left:15px;">Logout</a>
+    </div>
+  </nav>
+
+  <div class="admin-container">
+    <!-- Add / Edit Form Card -->
+    <div class="admin-card">
+      <h2 id="form-title">Add New Video</h2>
+      <p class="sub" id="form-sub">Fill out the form below to add a new video project to your portfolio.</p>
+      
+      <form id="video-form">
+        <input type="hidden" id="video-id">
+        <div class="form-group">
+          <label for="title">Video Title</label>
+          <input type="text" id="title" required placeholder="e.g., Brand Promo">
+        </div>
+
+        <div class="form-group">
+          <label for="category">Category</label>
+          <select id="category" required>
+            <option value="promo">Promo</option>
+            <option value="music">Music Video</option>
+            <option value="film">Short Film</option>
+            <option value="reels">Reels</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="video_url">Video Link (YouTube URL)</label>
+          <input type="url" id="video_url" required placeholder="https://www.youtube.com/watch?v=...">
+        </div>
+
+        <div class="form-group">
+          <label for="duration">Duration</label>
+          <input type="text" id="duration" required placeholder="0:45">
+        </div>
+
+        <div class="form-group">
+          <label for="description">Description</label>
+          <textarea id="description" placeholder="Brief description of the project..."></textarea>
+        </div>
+
+        <div style="display: flex; gap: 10px;">
+          <button type="submit" class="btn" id="submit-btn" style="flex:1; border:none; cursor:pointer;">Publish Video</button>
+          <button type="button" class="btn alt" id="cancel-edit" style="display:none;" onclick="resetForm()">Cancel</button>
+        </div>
+        <div id="success-msg">Video successfully published!</div>
+      </form>
+    </div>
+
+    <!-- Manage / List Videos Card -->
+    <div class="admin-card">
+      <h2>Manage Videos</h2>
+      <p class="sub">View, edit, or delete all previously published video projects.</p>
+      <div id="admin-video-list">
+        <!-- JavaScript will populate video list here -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="js/admin.js"></script>
+</body>
+</html>
